@@ -1,0 +1,54 @@
+project:
+  type: website
+  preview:
+    port: 4200
+  output-dir: docs
+
+website:
+  page-navigation: true
+  title: "Magic Data Hub"
+  site-url: "https://eduardoveloso.github.io"
+  #google-analytics: "G-2J79YYG9CZ"
+  page-footer:
+    left: "Sem dados, você é apenas uma pessoa com opinião"
+    right:
+      - icon: github
+        href: https://github.com/eduardoveloso
+      - icon: linkedin
+        href: https://www.linkedin.com/in/eduardoveloso/
+      - icon: envelope
+        href: mailto:eveloso92@gmail.com
+  navbar:
+    right:
+      - text: About
+        href: about.qmd
+      - text: Posts
+        href: posts/index.qmd
+      - text: Resume
+        href: https://github.com/eduardoveloso
+      - icon: github
+        href: https://github.com/eduardoveloso
+      - icon: linkedin
+        href: https://www.linkedin.com/in/eduardoveloso/
+
+format:
+  html:
+    smooth-scroll: true
+    theme:
+      - zephyr
+      - custom.scss
+    link-external-icon: false
+    link-external-newwindow: true
+    citations-hover: true
+    footnotes-hover: true
+    toc: true
+    code-link: true
+
+editor: visual
+
+comments:
+  giscus:
+    repo: eduardoveloso/eduardoveloso.github.io
+
+execute:
+  freeze: true
