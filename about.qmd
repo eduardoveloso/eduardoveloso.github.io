@@ -1,0 +1,22 @@
+---
+title: "Eduardo Veloso"
+comments: false
+image: ""
+about:
+  template: trestles
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:eveloso92@gmail.com
+    - icon: github
+      text: GitHub
+      href: https://github.com/eduardoveloso
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/eduardoveloso/
+---
+
+Loading...
+
+
+:::
