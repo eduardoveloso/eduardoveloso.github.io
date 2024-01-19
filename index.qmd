@@ -1,0 +1,43 @@
+---
+title: "Eduardo Veloso"
+listing:
+  - id: posts
+    contents: posts/**/*/index.qmd
+    type: grid
+    fields: [image, date, title, reading-time]
+    sort: "date desc"
+    categories: true
+    sort-ui: false
+    filter-ui: true
+    page-size: 10
+page-layout: full
+title-block-banner: false
+comments: false
+toc: false
+about:
+  template: marquee
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:eveloso92@gmail.com
+    - icon: github
+      text: GitHub
+      href: https://github.com/eduardoveloso
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/eduardoveloso/
+---
+
+:::{#hero-heading}
+
+**Português:** Boas vindas à minha página pessoal! Aqui você pode encontrar meus textos do blog, palestras e outros projetos em que estou trabalhando.
+
+:::
+
+---
+
+## Posts recentes
+
+:::{#posts}
+:::
+
