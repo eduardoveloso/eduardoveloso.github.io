@@ -1,7 +1,7 @@
 ---
 title: "Eduardo Veloso"
 comments: false
-image: ""
+image: perfil-photo.png
 about:
   template: trestles
   links:

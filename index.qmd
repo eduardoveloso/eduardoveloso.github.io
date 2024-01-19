@@ -6,7 +6,7 @@ listing:
     type: grid
     fields: [image, date, title, reading-time]
     sort: "date desc"
-    #categories: cloud
+    categories: true
     sort-ui: false
     filter-ui: true
     page-size: 10
@@ -16,7 +16,6 @@ comments: false
 toc: false
 about:
   template: marquee
-#  image: bea.jpg
   links:
     - icon: envelope
       text: Email
@@ -39,6 +38,6 @@ about:
 
 ## Posts recentes
 
-::: {#posts}
+:::{#posts}
 :::
 

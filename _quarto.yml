@@ -8,7 +8,7 @@ website:
   page-navigation: true
   title: "Magic Data Hub"
   site-url: "https://eduardoveloso.github.io"
-  #google-analytics: "G-2J79YYG9CZ"
+  google-analytics: "G-4SN0P88MWZ"
   page-footer:
     left: "Sem dados, você é apenas uma pessoa com opinião"
     right:
