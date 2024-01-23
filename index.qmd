@@ -30,7 +30,7 @@ about:
 
 :::{#hero-heading}
 
-**Português:** Boas vindas à minha página pessoal! Aqui você pode encontrar meus textos do blog, palestras e outros projetos em que estou trabalhando.
+Este blog é um reflexo da minha dedicação no universo de dados. Com experiencia abrangendo desde a manipulação e modelagem de dados até o desenvolvimento de soluções analíticas avançadas, tenho me dedicado a transformar grandes volumes de dados em insights acionáveis para tomada de decisões estratégicas em negócios.
 
 :::
 
