@@ -16,7 +16,9 @@ about:
       href: https://www.linkedin.com/in/eduardoveloso/
 ---
 
-Loading...
+Meu portfólio técnico inclui proficiência em linguagens de programação e ferramentas analíticas de ponta. Sou especialista em SQL e em Python, uma linguagem versátil e poderosa para análise de dados, e em Apache Spark, a plataforma unificada para processamento de big data em larga escala.
+
+Em minha caixa de ferramentas, o Power BI se destaca como uma solução robusta para visualização de dados e desenvolvimento de dashboards interativos, transformando dados brutos em narrativas visuais compreensíveis. Minha experiência se estende ao uso do Data Factory e Databricks, ferramentas essenciais para a construção de pipelines de dados eficientes e análises sofisticadas na nuvem.
 
 
-:::
+Palavras-chave: Python, Apache Spark, PySpark, SQL, Power BI, Data Factory, Databricks, DA-100, MPC-70778, ETL, Power Query, Pentaho, Excel, Modelagem de Dados, Analytics, Tecnologia para Negócios.
