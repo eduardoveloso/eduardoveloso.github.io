@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Eduardo Veloso">
+<meta name="dcterms.date" content="2024-11-09">
 
-<title>Magic Data Hub - Eduardo Veloso</title>
+<title>Magic Data Hub - [2] Construindo um Pipeline de Dados de uma Plataforma de E-commerce Fake até a Camada Analítica com Airflow</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -67,35 +68,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-posts .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-posts'] = new List('listing-posts', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4SN0P88MWZ"></script>
 
 <script type="text/javascript">
@@ -107,46 +79,17 @@ gtag('config', 'G-4SN0P88MWZ', { 'anonymize_ip': true});
 </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Magic Data Hub</span>
     </a>
   </div>
@@ -157,11 +100,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./posts/index.html"> 
+    <a class="nav-link" href="../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
@@ -186,114 +129,133 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">[2] Construindo um Pipeline de Dados de uma Plataforma de E-commerce Fake até a Camada Analítica com Airflow</h1>
+            <p class="subtitle lead">Um projeto de engenharia de dados fim a fim</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Airflow</div>
+                <div class="quarto-category">DataEngineering</div>
+                <div class="quarto-category">ETL</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Eduardo Veloso </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 9, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Airflow">Airflow <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Data Lake">Data Lake <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Data Warehouse">Data Warehouse <span class="quarto-category-count">(1)</span></div><div class="category" data-category="DataEngineering">DataEngineering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ETL">ETL <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Lakehouse">Lakehouse <span class="quarto-category-count">(1)</span></div></div></div>
-<!-- main -->
-<div class="quarto-about-marquee content column-page-left">
-  <div class="about-image-container">
-  </div>
-  <div class="about-contents">
-    <header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Eduardo Veloso</h1>
-</div>
-<div class="quarto-title-meta column-page-left">
-  </div>
-</header> <main class="content column-page-left" id="quarto-document-content">
-<div id="hero-heading">
-<p>Este blog é um reflexo da minha dedicação no universo de dados. Com experiencia abrangendo desde a manipulação e modelagem de dados até o desenvolvimento de soluções analíticas avançadas, tenho me dedicado a transformar grandes volumes de dados em insights acionáveis para tomada de decisões estratégicas em negócios.</p>
-</div>
-<hr>
-<section id="posts-recentes" class="level2">
-<h2 data-anchor-id="posts-recentes">Posts recentes</h2>
-<div id="listing-posts" class="quarto-listing quarto-listing-container-grid">
-<div class="listing-actions-group">
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><strong>Introdução</strong></a></li>
+  <li><a href="#visão-geral-do-projeto" id="toc-visão-geral-do-projeto" class="nav-link" data-scroll-target="#visão-geral-do-projeto"><strong>Visão Geral do Projeto</strong></a></li>
+  <li><a href="#tecnologias-utilizadas" id="toc-tecnologias-utilizadas" class="nav-link" data-scroll-target="#tecnologias-utilizadas"><strong>Tecnologias Utilizadas</strong></a></li>
+  <li><a href="#destaques-do-projeto-um-passeio-pelas-etapas-do-processo" id="toc-destaques-do-projeto-um-passeio-pelas-etapas-do-processo" class="nav-link" data-scroll-target="#destaques-do-projeto-um-passeio-pelas-etapas-do-processo"><strong>Destaques do Projeto: Um Passeio pelas Etapas do Processo</strong></a></li>
+  <li><a href="#planos-futuros-escalando-com-spark-e-kubernetes" id="toc-planos-futuros-escalando-com-spark-e-kubernetes" class="nav-link" data-scroll-target="#planos-futuros-escalando-com-spark-e-kubernetes"><strong>Planos Futuros: Escalando com Spark e Kubernetes</strong></a></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><strong>Conclusão</strong></a></li>
+  </ul>
+</nav>
     </div>
-</div>
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1731181220311">
-<a href="./docs/posts/2024-11-09-fakecommerce/index.qmd" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="Airflow,DataEngineering,ETL" data-listing-date-sort="1731121200000" data-listing-file-modified-sort="1731181220311" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="886">
-<a href="./posts/2024-11-09-fakecommerce/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="./posts/2024-11-09-fakecommerce/magic_data_hub-data-flow.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-[2] Construindo um Pipeline de Dados de uma Plataforma de E-commerce Fake até a Camada Analítica com Airflow
-</h5>
-<div class="listing-reading-time card-text text-muted">
-5 min
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Nov 9, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="Data Warehouse,Data Lake,Lakehouse" data-listing-date-sort="1705287600000" data-listing-file-modified-sort="1731181366113" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="830">
-<a href="./posts/2024-01-15-repositorio-dados-big-data/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="./posts/2024-01-15-repositorio-dados-big-data/magic_data_hub-repositorios-dados.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-[1] Data Warehouse vs Data Lake vs Lakehouse: Qual utilizar?
-</h5>
-<div class="listing-reading-time card-text text-muted">
-5 min
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Jan 15, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introdução" class="level1">
+<h1><strong>Introdução</strong></h1>
+<p>No mundo da engenharia de dados, configurar e orquestrar um pipeline de dados confiável é uma habilidade essencial. Recentemente, criei um projeto para demonstrar meu conhecimento sobre fluxos de dados usando um ambiente simulado de e-commerce. Este projeto mostra como os dados se movem da geração de pedidos até o armazenamento em um banco de dados, prontos para análise. Foi um exercício de uso de Python, Apache Airflow, PostgreSQL, Docker e S3 para construir um pipeline de ponta a ponta. Neste post, vou guiar você pelas várias etapas do projeto, as ferramentas que utilizei e alguns planos futuros para tornar o processo ainda mais robusto e escalável.</p>
+</section>
+<section id="visão-geral-do-projeto" class="level1">
+<h1><strong>Visão Geral do Projeto</strong></h1>
+<p>O objetivo deste projeto foi simular um pipeline de dados, movendo dados de uma loja de e-commerce fake através de várias etapas de processamento, até armazená-los em um banco de dados PostgreSQL. Aqui está um resumo de cada componente do projeto:</p>
+<pre><code>• Geração de Dados: Usando Python, criei um módulo para gerar pedidos falsos, simulando o que uma loja de e-commerce real poderia produzir.
+
+• Ingestão e Transformação de Dados**: Esses dados foram então ingeridos, transformados e carregados (ETL) em um banco de dados PostgreSQL.
+
+• Orquestração do Pipeline: Para gerenciar e automatizar o pipeline, usei o Apache Airflow, garantindo que cada etapa ocorresse na ordem correta e com as dependências necessárias.</code></pre>
+<p>Com essas etapas, os dados foram processados e ficaram prontos para análise, ilustrando um fluxo de trabalho típico de engenharia de dados em um cenário de e-commerce.</p>
+</section>
+<section id="tecnologias-utilizadas" class="level1">
+<h1><strong>Tecnologias Utilizadas</strong></h1>
+<p>Aqui está uma visão geral das tecnologias que sustentaram cada parte deste pipeline:</p>
+<pre><code>• Python: A base para a geração de dados, além de algumas das transformações.
+
+• Apache Airflow: Orquestrou o fluxo de trabalho ETL, gerenciando dependências e agendando cada tarefa.
+
+• S3: Usado como uma solução de armazenamento intermediário para manter dados temporariamente durante o processamento.
+
+• Docker: Proporcionou um ambiente consistente para cada serviço, simplificando a implantação e a configuração.
+
+• PostgreSQL: O destino final para os dados transformados, tornando-os acessíveis para análise.</code></pre>
+<p>Essa stack me permitiu criar um pipeline de dados coeso e de ponta a ponta, capaz de controlar o fluxo de dados de forma confiável.</p>
+</section>
+<section id="destaques-do-projeto-um-passeio-pelas-etapas-do-processo" class="level1">
+<h1><strong>Destaques do Projeto: Um Passeio pelas Etapas do Processo</strong></h1>
+<p>Vamos mergulhar um pouco mais em cada etapa do pipeline para entender melhor como tudo se conecta.</p>
+<p><strong>1. Geração de Dados</strong></p>
+<p>Usando Python, criei um módulo que gera dados sintéticos de pedidos. Esses dados incluem campos comuns de e-commerce, como ID do pedido, produto, preço e timestamp, simulando dados realistas que poderiam ser gerados por uma loja de e-commerce real.</p>
+<p><strong>2. Ingestão e Transformação de Dados</strong></p>
+<p>Uma vez gerados, os dados são ingeridos e passam por transformações. Alguns exemplos de transformações incluem:</p>
+<pre><code>• Padronização de Formatos: Garantir que datas, moedas e campos de texto estejam consistentes.
+
+• Filtragem ou Agregação: Agregar dados para simplificar a análise posterior.
+
+• Limpeza de Dados: Remover duplicatas e lidar com valores ausentes.</code></pre>
+<p>Essas transformações preparam os dados para análise e os tornam adequados para o carregamento no banco de dados PostgreSQL.</p>
+<p><strong>3. Orquestração do Pipeline com Apache Airflow</strong></p>
+<p>O pipeline de dados é orquestrado com o Apache Airflow, que garante que cada etapa ocorra na ordem correta. Os DAGs (Directed Acyclic Graphs) do Airflow permitem que eu defina dependências entre tarefas, facilitando o gerenciamento de fluxos de trabalho complexos.</p>
+<p>Principais benefícios do uso do Airflow aqui incluem:</p>
+<pre><code>• Agendamento de Tarefas: As tarefas são agendadas e gerenciadas de forma eficiente, reduzindo a necessidade de intervenção manual.
+
+• Tratamento de Erros: O Airflow registra e monitora as tarefas, facilitando a identificação e correção de problemas, caso ocorram.
+
+• Escalabilidade: O Airflow é construído para escalar, o que significa que ele pode lidar com pipelines mais complexos conforme forem adicionados.</code></pre>
+<p><strong>4. Armazenamento no Banco de Dados</strong></p>
+<p>Por fim, os dados transformados são carregados em um banco de dados PostgreSQL, que atua como a camada analítica. Armazenando os dados em um formato estruturado, eles ficam prontos para consulta e podem ser facilmente acessados para análise ou relatórios.</p>
+</section>
+<section id="planos-futuros-escalando-com-spark-e-kubernetes" class="level1">
+<h1><strong>Planos Futuros: Escalando com Spark e Kubernetes</strong></h1>
+<p>Embora este projeto inicial tenha demonstrado com sucesso um fluxo de dados da geração ao armazenamento, já estou considerando algumas melhorias futuras:</p>
+<pre><code>• Integração com Spark: Para lidar com conjuntos de dados maiores, pretendo usar o Apache Spark para processamento de dados em paralelo, tornando o pipeline mais robusto e capaz de lidar com big data.
+
+• Orquestração com Kubernetes: Mover a orquestração do pipeline para o Kubernetes permitirá um melhor gerenciamento de recursos, garantindo que as tarefas sejam isoladas, resilientes e altamente disponíveis.</code></pre>
+<p>Essas melhorias não só tornarão o pipeline mais escalável, mas também o aproximarão de aplicações reais, onde as demandas de processamento de dados estão em constante crescimento.</p>
+</section>
+<section id="conclusão" class="level1">
+<h1><strong>Conclusão</strong></h1>
+<p>Este projeto foi uma experiência enriquecedora na configuração de um pipeline de dados completo. Tive a oportunidade de trabalhar com várias ferramentas poderosas, cada uma trazendo forças únicas para o processo. Com dados gerados por um módulo de e-commerce fake, orquestrados pelo Apache Airflow e armazenados no PostgreSQL, este pipeline exemplifica um fluxo de trabalho típico de engenharia de dados. No futuro, pretendo escalá-lo ainda mais com Spark e Kubernetes.</p>
+<p>Se você estiver interessado em explorar o código, pode encontrá-lo no meu <a href="https://github.com/eduardoveloso/fake_ecommerce/tree/main">repositório do GitHub</a>.</p>
 
 
 </section>
-</main> 
-    <div class="about-footer"><div class="about-links">
-  <a href="mailto:eveloso92@gmail.com" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text">Email</span>
-  </a>
-  <a href="https://github.com/eduardoveloso" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">GitHub</span>
-  </a>
-  <a href="https://www.linkedin.com/in/eduardoveloso/" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-</div>
-</div>
-  </div>
-</div>
- <!-- /main -->
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -314,6 +276,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -687,6 +656,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="eduardoveloso/eduardoveloso.github.io" data-repo-id="R_kgDOLEulDQ" data-category="Blog" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -724,5 +697,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
